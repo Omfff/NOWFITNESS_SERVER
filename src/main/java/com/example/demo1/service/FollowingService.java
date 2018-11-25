@@ -3,7 +3,7 @@ package com.example.demo1.service;
 import com.example.demo1.mapper.FollowingMapper;
 import com.example.demo1.mapper.UserMapper;
 import com.example.demo1.model.UserModel;
-import com.example.demo1.model.response.FollowingConstReponse;
+import com.example.demo1.model.response.FollowingConstResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,21 +17,21 @@ public class FollowingService {
     @Autowired
     UserMapper userMapper;
 
-    public int following(int userId,int followId){
+    public String following(int userId,int followId){
         if(userId>0&&followId>0) {
             followingMapper.following(userId, followId);
-            return FollowingConstReponse.FOLLOWING_SUCCEED;
+            return FollowingConstResponse.FOLLOWING_SUCCEED;
         }else{
-            return FollowingConstReponse.FOLLOWING_FAILED;
+            return FollowingConstResponse.FOLLOWING_FAILED;
         }
     }
 
-    public int cancelFollow(int userId,int followId){
+    public String cancelFollow(int userId,int followId){
         if(userId>0&&followId>0) {
             followingMapper.notFollowing(userId, followId);
-            return FollowingConstReponse.FOLLOWING_SUCCEED;
+            return FollowingConstResponse.FOLLOWING_SUCCEED;
         }else{
-            return FollowingConstReponse.CANCEL_FOLLOWING_FAILED;
+            return FollowingConstResponse.CANCEL_FOLLOWING_FAILED;
         }
     }
 

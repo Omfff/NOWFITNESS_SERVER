@@ -30,5 +30,11 @@ public interface MomentsMapper {
     @Update("UPDATE `nowfitness`.`moments` SET `likes` = `likes`-1 WHERE `momentsId` = #{momentsId} ;")
     void removeLikes(@Param("momentsId")int momentsId);
 
+    @Update("UPDATE `nowfitness`.`moments` SET `image` = #{image} WHERE `momentsId` = #{momentsId} ;")
+    void storeImage(@Param("image")String image,@Param("momentsId")int momentsId);
+
+    @Select("SELECT * FROM `nowfitness`.`moments` where momentsId = #{momentsId} ")
+    MomentsModel findMomentsById(int momentsId);
+
 
 }

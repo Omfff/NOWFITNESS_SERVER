@@ -1,6 +1,7 @@
 package com.example.demo1.controller;
 
 import com.example.demo1.model.StepsDataModel;
+import com.example.demo1.model.response.StepsResponseModel;
 import com.example.demo1.service.StepsDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ public class StepsDataController {
     @Autowired
     private StepsDataService stepsDataService;
 
+    // /user/stepsdata/insert?id=xxx&steps=xxx&calories(calories非必需的)
     @RequestMapping("/user/stepsdata/insert")
     public StepsDataModel insertStepsData(StepsDataModel stepsDataModel){
         return stepsDataService.insertStepsData(stepsDataModel);
@@ -24,8 +26,10 @@ public class StepsDataController {
     }
 
     @RequestMapping("user/stepsdata/get")
-    public List<StepsDataModel> getStepsData(int id){
-        return stepsDataService.getAllStepsData(id);
+    public StepsResponseModel getStepsData(int id){
+        StepsResponseModel stepsResponseModel = new StepsResponseModel();
+        stepsResponseModel.setStepsDataModelList(stepsDataService.getAllStepsData(id));
+        return stepsResponseModel;
     }
 
 }

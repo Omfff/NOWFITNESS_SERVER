@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.io.IOException;
+
 @Service
 public class UserService {
     @Autowired
@@ -78,5 +80,20 @@ public class UserService {
             return userMapper.findUserId(name);
         else
             return -1;
+    }
+
+    public String updateUserPhoto(int id,String name){
+        String image=null;
+        UserModel userModel = userMapper.findById(id);
+        if(userModel.getPicture()==null) {
+            userMapper.updateUserPhoto(id, name);
+            return image;
+        }
+        else{
+                image = userModel.getPicture();
+                userMapper.updateUserPhoto(id,name);
+                return image;
+        }
+
     }
 }

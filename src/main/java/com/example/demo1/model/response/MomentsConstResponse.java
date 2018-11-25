@@ -1,12 +1,15 @@
 package com.example.demo1.model.response;
 
 public class MomentsConstResponse {
-    public static final int MOMENTS_RELEASE_SUCCESS = 1001;
-    public static final int MOMENTS_RELEASE_FAILED = 1002;
+    public static final String MOMENTS_RELEASE_SUCCESS = "moments release succeed";
+    public static final String MOMENTS_RELEASE_FAILED = "moments release failed";
 
-    public static final int MOMENTS_LIKES_ADD_SUCCESS = 1003;
-    public static final int MOMENTS_LIKES_EXISTED =1004;
-    public static final int MOMENTS_LIKES_REMOVE_SUCCESS = 1005;
-    public static final int MOMENTS_LIKES_ALREADY_REMOVED = 1006;
+    public static final String MOMENTS_LIKES_ADD_SUCCESS = "moments likes add success";
+    public static final String MOMENTS_LIKES_EXISTED ="moments likes existed";
+    public static final String MOMENTS_LIKES_REMOVE_SUCCESS = "moments likes remove success";
+    public static final String MOMENTS_LIKES_ALREADY_REMOVED = "moments likes already removed";
+
+    public static final boolean MOMENTS_IMAGE_EXISTED = true;
+    public static final boolean MOMENTS_IMAGE_NOT_EXISTED =false;
 
 }

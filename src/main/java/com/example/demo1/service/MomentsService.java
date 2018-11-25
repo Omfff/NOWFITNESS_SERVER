@@ -6,6 +6,7 @@ import com.example.demo1.model.response.MomentsConstResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
@@ -14,8 +15,12 @@ import java.util.TimeZone;
 public class MomentsService {
     @Autowired
     private MomentsMapper momentsMapper;
+    @Autowired
+    private PhotoService photoService;
+    @Autowired
+    private CommentsService commentsService;
 
-    public int insertMoments(MomentsModel momentsModel){
+    public String  insertMoments(MomentsModel momentsModel){
         if(momentsModel.getUserId()!=0&&momentsModel.getContent()!=null) {
             if(momentsModel.getReleaseTime()==null) {
                 TimeZone time = TimeZone.getTimeZone("ETC/GMT-8");
@@ -35,14 +40,36 @@ public class MomentsService {
     }
 
     public void deleteUserMoments(int momentsId){
-
-        momentsMapper.deleteUserMoments(momentsId);
+        MomentsModel momentsModel = momentsMapper.findMomentsById(momentsId);
+        if(momentsModel!=null) {
+            if (momentsModel.getImage() != null)
+                try {
+                    photoService.deleteImage(momentsModel.getImage());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                int id  =momentsModel.getMomentsId();
+            commentsService.deleteCommentByMomentsId(id);
+            momentsMapper.deleteUserMoments(momentsId);
+        }
     }
 
     public List<MomentsModel> getAllFollowingMoments(int userId){
         return momentsMapper.findAllFollowingMoments(userId);
     }
 
+    public String  upLoadImage(int momentsId,String imageUrl){
+        String image = null;
+        MomentsModel momentsModel = momentsMapper.findMomentsById(momentsId);
+        if(momentsModel.getImage()==null) {
+            momentsMapper.storeImage(imageUrl, momentsId);
+            return image;
+        }else{
+            image=momentsModel.getImage();
+            momentsMapper.storeImage(imageUrl, momentsId);
+            return image;
+        }
+    }
     public int addLikes(int momentsId,int num){
         momentsMapper.addLikes(momentsId);
         return 1;

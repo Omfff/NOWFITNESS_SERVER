@@ -11,4 +11,6 @@ public class MomentsModel {
     private Date releaseTime;
     private String image;
     private int likes;
+
+    private int commentsNum;
 }

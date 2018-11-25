@@ -20,7 +20,7 @@ public class LikesService {
     @Autowired
     private MomentsMapper momentsMapper;
 
-    public int addLikes(int momentsId,int likesId){
+    public String addLikes(int momentsId,int likesId){
         if(likesMapper.checkLikesExisted(momentsId,likesId)==false) {
             likesMapper.addLikes(momentsId, likesId);
             //判断是否插入成功
@@ -30,7 +30,7 @@ public class LikesService {
             return MomentsConstResponse.MOMENTS_LIKES_EXISTED;
     }
 
-    public int removeLikes(int momentsId,int likesId) {
+    public String removeLikes(int momentsId,int likesId) {
         if (likesMapper.checkLikesExisted(momentsId, likesId) == true) {
             likesMapper.removeLikes(momentsId, likesId);
             momentsMapper.removeLikes(momentsId);

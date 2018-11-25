@@ -1,5 +1,6 @@
 package com.example.demo1.controller;
 
+import com.example.demo1.model.response.ConstResponseModel;
 import com.example.demo1.model.UserModel;
 import com.example.demo1.service.LikesService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,13 +15,17 @@ public class LikesController {
     private LikesService likesService;
     //还没同步更新moments中的likes
     @RequestMapping("moments/addLikes")
-    public int addLikes(int momentsId,int likesId){
-       return likesService.addLikes(momentsId,likesId);
+    public ConstResponseModel addLikes(int momentsId, int likesId){
+       ConstResponseModel momentsResponse = new ConstResponseModel();
+       momentsResponse.setResult( likesService.addLikes(momentsId,likesId));
+       return momentsResponse;
     }
 
     @RequestMapping("moments/removeLikes")
-    public int remove(int momentsId,int likesId){
-        return likesService.removeLikes(momentsId, likesId);
+    public ConstResponseModel remove(int momentsId, int likesId){
+        ConstResponseModel momentsResponse = new ConstResponseModel();
+        momentsResponse.setResult(likesService.removeLikes(momentsId, likesId));
+        return momentsResponse;
     }
 
     @RequestMapping("moments/getLikesUsers")

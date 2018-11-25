@@ -23,6 +23,9 @@ public interface UserMapper {
     @Update("UPDATE `nowfitness`.`user` SET `height` = #{height},`weight` = #{weight},`sex` = #{sex},`age` = #{age},`picture` = #{picture} WHERE `id` = #{id};")
     int updateUserData(UserModel userModel);
 
+    @Update("UPDATE `nowfitness`.`user` SET `picture` = #{picture} WHERE `id` = #{id};")
+    int updateUserPhoto(@Param("id") int id,@Param("picture") String picture);
+
 
 
 }

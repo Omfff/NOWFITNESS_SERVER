@@ -1,6 +1,6 @@
 package com.example.demo1.controller;
 
-import com.example.demo1.mapper.FollowingMapper;
+import com.example.demo1.model.response.ConstResponseModel;
 import com.example.demo1.model.UserModel;
 import com.example.demo1.service.FollowingService;
 import com.example.demo1.service.UserService;
@@ -18,20 +18,27 @@ public class FollowingController {
     UserService userService;
 
     @RequestMapping("/user/followingByName")
-    public int follow(String userName,String followingName){
-        return followingService.following(userService.findUserId(userName),userService.findUserId(followingName));
+    public ConstResponseModel follow(String userName, String followingName){
+        ConstResponseModel followingResponse = new ConstResponseModel();
+        followingResponse.setResult(followingService.following(userService.findUserId(userName),userService.findUserId(followingName)));
+        return followingResponse;
     }
 
     @RequestMapping("/user/followingById")
-    public int follow(int userId,int followId){
-        return followingService.following(userId,followId);
+    public ConstResponseModel follow(int userId, int followId){
+        ConstResponseModel followingResponse = new ConstResponseModel();
+        followingResponse.setResult(followingService.following(userId,followId));
+        return followingResponse;
     }
 
     @RequestMapping("/user/cancelFollowingByName")
-    public int cancelFollowing(String userName,String followingName){
-        return followingService.cancelFollow(userService.findUserId(userName),userService.findUserId(followingName));
+    public ConstResponseModel cancelFollowing(String userName, String followingName){
+        ConstResponseModel followingResponse = new ConstResponseModel();
+        followingResponse.setResult(followingService.cancelFollow(userService.findUserId(userName),userService.findUserId(followingName)));
+        return followingResponse;
     }
 
+    //还没修改
     @RequestMapping("/user/getAllFollowingIds")
     public int[] getAllFollowing(int userId){
         return followingService.findUserFollowingId(userId);
