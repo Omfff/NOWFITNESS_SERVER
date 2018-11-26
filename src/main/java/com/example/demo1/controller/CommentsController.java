@@ -33,16 +33,10 @@ public class CommentsController {
      }
      @RequestMapping("/comment")
     public CommentsResponseModel getAllCommentsAndReplies(int momentsId){
-
          CommentsResponseModel commentsResponseModel = new CommentsResponseModel();
          List<CommentsModel> commentsModelsList =  commentsService.selectAllCommentsUnderMoments(momentsId);
          commentsResponseModel.setCommentsNum(commentsModelsList.size());
-         commentsResponseModel.setCommentsList(commentsModelsList);
-         for(int i=0;i<commentsModelsList.size();i++){
-             List<RepliesModel> repliesList = repliesService.selectAllRepliseUnderComment(commentsModelsList.get(i).getId());
-             if(repliesList!=null)
-                commentsResponseModel.getCommentsList().get(i).setRepliesList(repliesList);
-         }
+         commentsResponseModel.setCommentsList( commentsService.completeCommentsInformation(commentsModelsList));
          return commentsResponseModel;
      }
 }

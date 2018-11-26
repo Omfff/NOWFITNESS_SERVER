@@ -1,7 +1,7 @@
 package com.example.demo1.service;
 
 import com.example.demo1.model.ImageStoreModel;
-import com.example.demo1.model.response.PhotoConstResponse;
+import com.example.demo1.model.constValue.PhotoConstResponse;
 import com.example.demo1.util.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

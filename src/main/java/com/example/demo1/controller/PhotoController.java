@@ -1,7 +1,7 @@
 package com.example.demo1.controller;
 
 import com.example.demo1.model.response.ConstResponseModel;
-import com.example.demo1.model.response.PhotoConstResponse;
+import com.example.demo1.model.constValue.PhotoConstResponse;
 import com.example.demo1.service.PhotoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

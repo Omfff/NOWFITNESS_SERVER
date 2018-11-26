@@ -4,7 +4,7 @@ import com.example.demo1.mapper.LikesMapper;
 import com.example.demo1.mapper.MomentsMapper;
 import com.example.demo1.mapper.UserMapper;
 import com.example.demo1.model.UserModel;
-import com.example.demo1.model.response.MomentsConstResponse;
+import com.example.demo1.model.constValue.MomentsConstResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

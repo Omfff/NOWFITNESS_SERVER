@@ -2,7 +2,7 @@ package com.example.demo1.service;
 
 import com.example.demo1.mapper.MomentsMapper;
 import com.example.demo1.model.MomentsModel;
-import com.example.demo1.model.response.MomentsConstResponse;
+import com.example.demo1.model.constValue.MomentsConstResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

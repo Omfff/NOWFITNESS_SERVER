@@ -2,7 +2,7 @@ package com.example.demo1.service;
 
 import com.example.demo1.mapper.RepliesMapper;
 import com.example.demo1.model.RepliesModel;
-import com.example.demo1.model.response.CommentConstResponse;
+import com.example.demo1.model.constValue.CommentConstResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +14,8 @@ import java.util.TimeZone;
 public class RepliesService {
     @Autowired
     private RepliesMapper repliesMapper;
+    @Autowired
+    private UserService userService;
 
     public String makeReply(RepliesModel repliesModel){
         if(repliesModel.getCommentId()!=0
@@ -51,5 +53,18 @@ public class RepliesService {
 
     public List<RepliesModel> selectAllRepliseUnderComment(int commentId){
         return repliesMapper.selectRepliesUnderComment(commentId);
+    }
+    public List<RepliesModel> completeRepliesInformation(List<RepliesModel>repliesModelList){
+        if(repliesModelList!=null){
+            for (RepliesModel repliesModel :repliesModelList) {
+                repliesModel.setFromUserName(userService
+                        .getUserInformationById(repliesModel.getFromUserId())
+                        .getUserName());
+                repliesModel.setToUserName(userService
+                        .getUserInformationById(repliesModel.getToUserId())
+                        .getUserName());
+            }
+        }
+        return repliesModelList;
     }
 }

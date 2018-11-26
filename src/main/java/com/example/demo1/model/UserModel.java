@@ -7,7 +7,7 @@ public class UserModel {
     private int id;
     private String userName;
     private String password;
-    private int height;
+    private double height;
     private double weight;
     private String sex;
     private  int age;

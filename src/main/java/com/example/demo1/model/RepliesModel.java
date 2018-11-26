@@ -14,4 +14,7 @@ public class RepliesModel {
     private String content;
     private Date replyTime;
     private int replyId;
+
+    private String fromUserName;
+    private String toUserName;
 }

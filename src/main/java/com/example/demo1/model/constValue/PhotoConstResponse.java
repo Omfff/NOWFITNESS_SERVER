@@ -1,4 +1,4 @@
-package com.example.demo1.model.response;
+package com.example.demo1.model.constValue;
 
 public class PhotoConstResponse {
     public static final String PIC_UPLOAD_SUCCEED ="picture upload succeed";

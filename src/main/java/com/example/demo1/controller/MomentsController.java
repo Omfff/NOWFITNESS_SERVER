@@ -1,12 +1,13 @@
 package com.example.demo1.controller;
 
+import com.example.demo1.model.UserModel;
 import com.example.demo1.model.response.ConstResponseModel;
 import com.example.demo1.model.MomentsModel;
-import com.example.demo1.model.response.MomentsConstResponse;
 import com.example.demo1.model.response.MomentsResponseModel;
 import com.example.demo1.service.CommentsService;
 import com.example.demo1.service.MomentsService;
 import com.example.demo1.service.PhotoService;
+import com.example.demo1.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,6 +22,8 @@ public class MomentsController {
     private PhotoService photoService;
     @Autowired
     private CommentsService commentsService;
+    @Autowired
+    private UserService userService;
 
     @RequestMapping("/moments/release")
     public ConstResponseModel releaseMoments(MomentsModel momentsModel){
@@ -46,10 +49,15 @@ public class MomentsController {
     public MomentsResponseModel getAllFollowingMoments(int userId){
        List<MomentsModel> momentsModelList = momentsService.getAllFollowingMoments(userId);
        MomentsResponseModel momentsResponseModel = new MomentsResponseModel();
+
        momentsResponseModel.setMomentsNum(momentsModelList.size());
        for(int i =0;i<momentsModelList.size();i++){
-           int commentsNum = commentsService.selectAllCommentsUnderMoments(momentsModelList.get(i).getMomentsId()).size();
-           momentsModelList.get(i).setCommentsNum(commentsNum);
+           MomentsModel momentsModel =momentsModelList.get(i);
+           int commentsNum = commentsService.selectAllCommentsUnderMoments(momentsModel.getMomentsId()).size();
+           momentsModel.setCommentsNum(commentsNum);
+           UserModel userModel = userService.getUserInformationById(momentsModel.getUserId());
+           momentsModel.setUserName(userModel.getUserName());
+           momentsModel.setUserPhoto(userModel.getPicture());
        }
        momentsResponseModel.setMomentsModelsList(momentsModelList);
        return momentsResponseModel;

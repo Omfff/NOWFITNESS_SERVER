@@ -2,13 +2,9 @@ package com.example.demo1.service;
 
 import com.example.demo1.mapper.UserMapper;
 import com.example.demo1.model.UserModel;
-import com.example.demo1.model.response.UserConstResponse;
-import org.apache.catalina.User;
+import com.example.demo1.model.constValue.UserConstResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.io.IOException;
 
 @Service
 public class UserService {
@@ -73,6 +69,10 @@ public class UserService {
              return userMapper.findUserByName(name);
         else
             return null;
+    }
+
+    public UserModel getUserInformationById(int userId){
+        return userMapper.findById(userId);
     }
 
     public int findUserId(String name){

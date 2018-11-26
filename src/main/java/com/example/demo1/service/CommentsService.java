@@ -2,7 +2,8 @@ package com.example.demo1.service;
 
 import com.example.demo1.mapper.CommentsMapper;
 import com.example.demo1.model.CommentsModel;
-import com.example.demo1.model.response.CommentConstResponse;
+import com.example.demo1.model.UserModel;
+import com.example.demo1.model.constValue.CommentConstResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,8 @@ public class CommentsService {
     private CommentsMapper commentsMapper;
     @Autowired
     private RepliesService repliesService;
+    @Autowired
+    private UserService userService;
 
     public String makeComment(CommentsModel commentsModel){
         if(commentsModel.getCommentUserId()!=0
@@ -50,6 +53,22 @@ public class CommentsService {
 
     public List<CommentsModel> selectAllCommentsUnderMoments(int momensId){
         return commentsMapper.selectComments(momensId);
+    }
+
+    public List<CommentsModel> completeCommentsInformation(List<CommentsModel> commentsModelList){
+        if(commentsModelList!=null){
+            for(CommentsModel commentsModel :commentsModelList){
+                UserModel userModel = userService
+                        .getUserInformationById(commentsModel.getCommentUserId());
+                commentsModel.setCommentUserName(userModel.getUserName());
+                commentsModel.setCommentUserPhoto(userModel.getPicture());
+                commentsModel.setRepliesList(repliesService.
+                        selectAllRepliseUnderComment(commentsModel.getId()));
+                commentsModel.setRepliesList(repliesService
+                        .completeRepliesInformation(commentsModel.getRepliesList()));
+            }
+        }
+        return commentsModelList;
     }
 
 

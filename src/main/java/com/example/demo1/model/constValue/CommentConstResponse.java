@@ -1,4 +1,4 @@
-package com.example.demo1.model.response;
+package com.example.demo1.model.constValue;
 
 public class CommentConstResponse {
     public static final String REPLY_IMFORMATION_LACK ="reply information lack";

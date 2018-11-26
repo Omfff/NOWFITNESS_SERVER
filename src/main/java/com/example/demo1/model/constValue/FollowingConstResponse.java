@@ -1,4 +1,4 @@
-package com.example.demo1.model.response;
+package com.example.demo1.model.constValue;
 
 public class FollowingConstResponse {
     public final static String FOLLOWING_SUCCEED = "following succeed";

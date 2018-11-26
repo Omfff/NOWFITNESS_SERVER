@@ -1,4 +1,4 @@
-package com.example.demo1.model.response;
+package com.example.demo1.model.constValue;
 
 public class UserConstResponse {
     public static final int STATUS_OK = 1000;

@@ -13,5 +13,8 @@ public class CommentsModel {
     private int commentUserId ;
     private Date commentTime;
 
+    private String commentUserPhoto;
+    private String commentUserName;
+
     private List<RepliesModel> repliesList;
 }

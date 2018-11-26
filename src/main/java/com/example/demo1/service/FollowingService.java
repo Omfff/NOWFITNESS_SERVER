@@ -3,7 +3,7 @@ package com.example.demo1.service;
 import com.example.demo1.mapper.FollowingMapper;
 import com.example.demo1.mapper.UserMapper;
 import com.example.demo1.model.UserModel;
-import com.example.demo1.model.response.FollowingConstResponse;
+import com.example.demo1.model.constValue.FollowingConstResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,6 +39,7 @@ public class FollowingService {
         return followingMapper.findUserFollowingIds(userId);
     }
 
+    public int[] findUserFansId(int userId){return followingMapper.findUserFans(userId);}
     public List<UserModel> getFollowinguUser(int userId){
         int [] followingIds = followingMapper.findUserFollowingIds(userId);
         List<UserModel> followingUsers = new ArrayList<>();

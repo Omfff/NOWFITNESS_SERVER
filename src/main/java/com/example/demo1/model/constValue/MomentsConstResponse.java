@@ -1,4 +1,4 @@
-package com.example.demo1.model.response;
+package com.example.demo1.model.constValue;
 
 public class MomentsConstResponse {
     public static final String MOMENTS_RELEASE_SUCCESS = "moments release succeed";

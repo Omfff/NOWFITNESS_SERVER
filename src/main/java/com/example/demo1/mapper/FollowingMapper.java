@@ -16,4 +16,7 @@ public interface FollowingMapper {
 
     @Delete("DELETE FROM `nowfitness`.`following` WHERE userId=#{userId} and followId=#{followId}")
     void notFollowing(@Param("userId")int userId ,@Param("followId")int followId);
+
+    @Select("SELECT userId FROM `nowfitness`.`following` where followId = #{followId}")
+    int [] findUserFans(@Param("followId")int followId);
 }
