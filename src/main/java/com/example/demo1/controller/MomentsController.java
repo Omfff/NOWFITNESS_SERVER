@@ -1,17 +1,16 @@
 package com.example.demo1.controller;
 
+import com.example.demo1.model.CommentsModel;
 import com.example.demo1.model.UserModel;
 import com.example.demo1.model.response.ConstResponseModel;
 import com.example.demo1.model.MomentsModel;
 import com.example.demo1.model.response.MomentsResponseModel;
-import com.example.demo1.service.CommentsService;
-import com.example.demo1.service.MomentsService;
-import com.example.demo1.service.PhotoService;
-import com.example.demo1.service.UserService;
+import com.example.demo1.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -24,6 +23,8 @@ public class MomentsController {
     private CommentsService commentsService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private LikesService likesService;
 
     @RequestMapping("/moments/release")
     public ConstResponseModel releaseMoments(MomentsModel momentsModel){
@@ -55,9 +56,12 @@ public class MomentsController {
            MomentsModel momentsModel =momentsModelList.get(i);
            int commentsNum = commentsService.selectAllCommentsUnderMoments(momentsModel.getMomentsId()).size();
            momentsModel.setCommentsNum(commentsNum);
+           //List<CommentsModel> commentsModelList = new ArrayList<>();
+           //momentsModel.setCommentsModelList( commentsModelList);
            UserModel userModel = userService.getUserInformationById(momentsModel.getUserId());
            momentsModel.setUserName(userModel.getUserName());
            momentsModel.setUserPhoto(userModel.getPicture());
+           momentsModel.setLiked(likesService.checkMomentsIsLikedByUserId(momentsModel.getMomentsId(),userId));
        }
        momentsResponseModel.setMomentsModelsList(momentsModelList);
        return momentsResponseModel;
@@ -65,9 +69,10 @@ public class MomentsController {
 
     @RequestMapping(value = "/moments/uploadPhoto", method = RequestMethod.POST)
     public @ResponseBody
-    ConstResponseModel uploadImage(@RequestParam("file") MultipartFile file, @RequestParam("momentsId") int momentsId) {
+    ConstResponseModel uploadImage(@RequestParam("file") MultipartFile file, @RequestParam("momentsId") String momentsId) {
         ConstResponseModel momentsResponse = new ConstResponseModel();
-        momentsResponse.setResult(photoService.upLoadMomentsImage(file, momentsId));
+        int realMomentid = Integer.parseInt(momentsId);
+        momentsResponse.setResult(photoService.upLoadMomentsImage(file, realMomentid));
         return momentsResponse;
     }
 }

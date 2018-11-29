@@ -87,9 +87,10 @@ public class UserController {
 
     @RequestMapping(value = "/user/uploadPhoto", method = RequestMethod.POST)
     public @ResponseBody
-    ConstResponseModel upload(@RequestParam("file") MultipartFile file, @RequestParam("id") int id) {
+    ConstResponseModel upload(@RequestParam("file") MultipartFile file, @RequestParam("id") String id) {
+        int realId = Integer.parseInt(id);
         ConstResponseModel userReponse = new ConstResponseModel();
-        userReponse.setResult(photoService.upLoadUserPhoto(file,id));
+        userReponse.setResult(photoService.upLoadUserPhoto(file,realId));
         return userReponse;
     }
 }

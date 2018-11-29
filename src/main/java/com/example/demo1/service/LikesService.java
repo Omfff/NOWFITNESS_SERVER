@@ -49,4 +49,8 @@ public class LikesService {
         return supporters;
     }
 
+    public boolean checkMomentsIsLikedByUserId(int momentsId,int userId){
+        return likesMapper.checkLikesExisted(momentsId,userId);
+    }
+
 }

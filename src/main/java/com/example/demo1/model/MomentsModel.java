@@ -19,6 +19,8 @@ public class MomentsModel {
     private int likes;
 
     private int commentsNum;
-    private List<CommentsModel> commentsModelList;
+    private boolean isLiked;
+    //private List<CommentsModel> commentsModelList;
+
 
 }
