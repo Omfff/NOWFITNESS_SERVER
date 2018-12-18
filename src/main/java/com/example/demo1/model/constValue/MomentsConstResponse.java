@@ -12,4 +12,7 @@ public class MomentsConstResponse {
     public static final boolean MOMENTS_IMAGE_EXISTED = true;
     public static final boolean MOMENTS_IMAGE_NOT_EXISTED =false;
 
+    public static final String MOMENTS_DELETE_SUCCESS = "moments delete success";
+    public static final String MOMENTS_DELETE_FAILED = "moments delete failed";
+    public static final String MOMENTS_NOT_EXISTED = "moments not existed";
 }

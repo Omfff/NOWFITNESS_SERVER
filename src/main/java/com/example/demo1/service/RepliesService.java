@@ -2,6 +2,7 @@ package com.example.demo1.service;
 
 import com.example.demo1.mapper.RepliesMapper;
 import com.example.demo1.model.RepliesModel;
+import com.example.demo1.model.UserModel;
 import com.example.demo1.model.constValue.CommentConstResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,9 +22,9 @@ public class RepliesService {
         if(repliesModel.getCommentId()!=0
                 &&repliesModel.getFromUserId()!=0
                 &&repliesModel.getToUserId()!=0
-                &&repliesModel.getReplyType()!=null//待定
+               // &&repliesModel.getReplyType()!=null//待定
                 &&repliesModel.getContent()!=null
-                &&repliesModel.getReplyId()!=0 //待定
+                //&&repliesModel.getReplyId()!=0 //待定
          ){
             if(repliesModel.getReplyTime()==null){
                 TimeZone time = TimeZone.getTimeZone("ETC/GMT-8");
@@ -57,12 +58,14 @@ public class RepliesService {
     public List<RepliesModel> completeRepliesInformation(List<RepliesModel>repliesModelList){
         if(repliesModelList!=null){
             for (RepliesModel repliesModel :repliesModelList) {
-                repliesModel.setFromUserName(userService
-                        .getUserInformationById(repliesModel.getFromUserId())
-                        .getUserName());
-                repliesModel.setToUserName(userService
-                        .getUserInformationById(repliesModel.getToUserId())
-                        .getUserName());
+                UserModel u1 = userService
+                        .getUserInformationById(repliesModel.getFromUserId());
+                UserModel u2 = userService
+                        .getUserInformationById(repliesModel.getToUserId());
+                repliesModel.setFromUserName(u1.getUserName());
+                repliesModel.setToUserName(u2.getUserName());
+                repliesModel.setToUserNickName(u2.getNickName());
+                repliesModel.setFromUserNickName(u1.getNickName());
             }
         }
         return repliesModelList;

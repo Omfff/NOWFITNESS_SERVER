@@ -11,6 +11,10 @@ public interface LikesMapper {
     @Delete("DELETE FROM `nowfitness`.`likes` WHERE likesId = #{likesId} and momentsId =#{momentsId} ")
     void removeLikes(@Param("momentsId")int momentsId,@Param("likesId") int likesId );
 
+    @Delete("DELETE FROM `nowfitness`.`likes` WHERE momentsId =#{momentsId} ")
+    void removeAllLikes(@Param("momentsId")int momentsId);
+
+
     @Select("SELECT likesId FROM `nowfitness`.`likes` where momentsId = #{momentsId}" )
     int [] getLikeUsersIds(@Param("momentsId")int momentsId);
 

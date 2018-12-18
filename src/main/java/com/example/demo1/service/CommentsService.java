@@ -3,6 +3,7 @@ package com.example.demo1.service;
 import com.example.demo1.mapper.CommentsMapper;
 import com.example.demo1.model.CommentsModel;
 import com.example.demo1.model.UserModel;
+import com.example.demo1.model.constValue.BaseUrl;
 import com.example.demo1.model.constValue.CommentConstResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -61,7 +62,8 @@ public class CommentsService {
                 UserModel userModel = userService
                         .getUserInformationById(commentsModel.getCommentUserId());
                 commentsModel.setCommentUserName(userModel.getUserName());
-                commentsModel.setCommentUserPhoto(userModel.getPicture());
+                commentsModel.setCommentUserNickName(userModel.getNickName());
+                commentsModel.setCommentUserPhoto(BaseUrl.URL+userModel.getPicture());
                 commentsModel.setRepliesList(repliesService.
                         selectAllRepliseUnderComment(commentsModel.getId()));
                 commentsModel.setRepliesList(repliesService

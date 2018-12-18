@@ -15,6 +15,7 @@ public class UserInfoResponseModel {
     private String sex;
     private  int age;
     private String picture;
+    private String nickName;
 
     private int following;
     private int fans;

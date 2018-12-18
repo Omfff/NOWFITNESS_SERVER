@@ -1,13 +1,20 @@
 package com.example.demo1.controller;
 
+import com.example.demo1.model.constValue.FollowingConstResponse;
+import com.example.demo1.model.response.BaseResponse;
+import com.example.demo1.model.response.Code;
 import com.example.demo1.model.response.ConstResponseModel;
 import com.example.demo1.model.UserModel;
 import com.example.demo1.service.FollowingService;
 import com.example.demo1.service.UserService;
+import com.fasterxml.jackson.databind.ser.Serializers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @RestController
@@ -17,36 +24,69 @@ public class FollowingController {
     @Autowired
     UserService userService;
 
-    @RequestMapping("/user/followingByName")
-    public ConstResponseModel follow(String userName, String followingName){
-        ConstResponseModel followingResponse = new ConstResponseModel();
-        followingResponse.setResult(followingService.following(userService.findUserId(userName),userService.findUserId(followingName)));
-        return followingResponse;
+    /*@RequestMapping(value = "/user/{userName}/following/{followingName}",method = RequestMethod.POST)
+    public BaseResponse follow(@PathVariable("userName") String userName, @PathVariable("followingName")String followingName){
+        String result = followingService.following(userService.findUserId(userName),userService.findUserId(followingName));
+        BaseResponse baseResponse = new BaseResponse((new Timestamp(System.currentTimeMillis())).toString()
+                ,Code.CREATED
+                ,Code.NO_ERROR_MESSAGE
+                ,result
+                ,"/user/"+userName+"/following/"+followingName
+                ,null);
+        if(!result.equals(FollowingConstResponse.FOLLOWING_SUCCEED)){
+            baseResponse.setStatus(Code.OK);
+        }
+        return baseResponse;
+    }*/
+
+    @RequestMapping(value = "/user/{userId}/following/{followId}",method = RequestMethod.POST)
+    public BaseResponse follow(@PathVariable("userId")int userId, @PathVariable("followId") int followId){
+        String result = followingService.following(userId,followId);
+        BaseResponse baseResponse = new BaseResponse((new Timestamp(System.currentTimeMillis())).toString()
+                ,Code.CREATED
+                ,Code.NO_ERROR_MESSAGE
+                ,result
+                ,"/user/"+String.valueOf(userId)+"/following/"+String.valueOf(followId)
+                ,null);
+        if(!result.equals(FollowingConstResponse.FOLLOWING_SUCCEED))
+            baseResponse.setStatus(Code.OK);
+        return baseResponse;
     }
 
-    @RequestMapping("/user/followingById")
-    public ConstResponseModel follow(int userId, int followId){
-        ConstResponseModel followingResponse = new ConstResponseModel();
-        followingResponse.setResult(followingService.following(userId,followId));
-        return followingResponse;
-    }
-
-    @RequestMapping("/user/cancelFollowingByName")
-    public ConstResponseModel cancelFollowing(String userName, String followingName){
-        ConstResponseModel followingResponse = new ConstResponseModel();
-        followingResponse.setResult(followingService.cancelFollow(userService.findUserId(userName),userService.findUserId(followingName)));
-        return followingResponse;
+    @RequestMapping(value = "/user/{userId}/following/{followId}",method = RequestMethod.DELETE)
+    public BaseResponse cancelFollowing(@PathVariable("userId")int userId, @PathVariable("followId") int followId){
+       String result = followingService.cancelFollow(userId,followId);
+        BaseResponse baseResponse = new BaseResponse((new Timestamp(System.currentTimeMillis())).toString()
+                ,Code.NO_CONTENT
+                ,Code.NO_ERROR_MESSAGE
+                ,result
+                ,"/user/"+String.valueOf(userId)+"/following/"+String.valueOf(followId)
+                ,null);
+        return baseResponse;
     }
 
     //还没修改
-    @RequestMapping("/user/getAllFollowingIds")
-    public int[] getAllFollowing(int userId){
-        return followingService.findUserFollowingId(userId);
-    }
+    /*@RequestMapping(value = "/user/{userId}/following",method = RequestMethod.GET)
+    public BaseResponse getAllFollowing(@PathVariable("userId") int userId){
+        BaseResponse baseResponse = new BaseResponse((new Timestamp(System.currentTimeMillis())).toString()
+                ,Code.OK
+                ,Code.NO_ERROR_MESSAGE
+                ,Code.NO_MESSAGE_AVAIABLE
+                ,"/user/"+String.valueOf(userId)+"/following"
+                ,followingService.findUserFollowingId(userId));
+        return baseResponse;
+    }*/
 
-    @RequestMapping("/user/getAllFollowingUsers")
-    public List<UserModel> getAllFollowingUsers(int userId){
-        return followingService.getFollowinguUser(userId);
+    @RequestMapping(value = "/user/{userId}/following",method = RequestMethod.GET)
+    public BaseResponse getAllFollowingUsers(@PathVariable("userId") int userId){
+
+        BaseResponse baseResponse = new BaseResponse((new Timestamp(System.currentTimeMillis())).toString()
+                ,Code.OK
+                ,Code.NO_ERROR_MESSAGE
+                ,Code.NO_MESSAGE_AVAIABLE
+                ,"/user/"+String.valueOf(userId)+"/following"
+                ,followingService.getFollowinguUser(userId));
+        return baseResponse;
     }
 
 }

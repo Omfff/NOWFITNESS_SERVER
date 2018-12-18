@@ -19,4 +19,7 @@ public interface FollowingMapper {
 
     @Select("SELECT userId FROM `nowfitness`.`following` where followId = #{followId}")
     int [] findUserFans(@Param("followId")int followId);
+
+    @Select( "SELECT EXISTS(SELECT * FROM `nowfitness`.`following` WHERE  userId=#{userId} and followId=#{followId})")//select isnull((select top(1) 1 from `nowfitness`.`likes` where momentsId=#{momentsId} and likesId=#{likesId} ), 0)")
+    boolean checkFollowExisted(@Param("userId")int userId,@Param("followId")int followId);
 }

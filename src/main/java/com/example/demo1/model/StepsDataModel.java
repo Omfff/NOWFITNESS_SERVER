@@ -10,4 +10,10 @@ public class StepsDataModel {
     private Date date;
     private int steps;
     private int calories;
+    public StepsDataModel(int userId,int steps,int calories){
+        this.id =userId;
+        this.steps = steps;
+        this.calories =calories;
+    }
+    public StepsDataModel(){}
 }

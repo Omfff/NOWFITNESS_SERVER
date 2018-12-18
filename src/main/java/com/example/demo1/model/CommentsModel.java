@@ -15,6 +15,7 @@ public class CommentsModel {
 
     private String commentUserPhoto;
     private String commentUserName;
+    private String commentUserNickName;
 
     private List<RepliesModel> repliesList;
 }

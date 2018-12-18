@@ -3,6 +3,8 @@ package com.example.demo1.service;
 import com.example.demo1.mapper.MomentsMapper;
 import com.example.demo1.model.MomentsModel;
 import com.example.demo1.model.constValue.MomentsConstResponse;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,8 +21,10 @@ public class MomentsService {
     private PhotoService photoService;
     @Autowired
     private CommentsService commentsService;
+    @Autowired
+    private LikesService likesService;
 
-    public String  insertMoments(MomentsModel momentsModel){
+    public int  insertMoments(MomentsModel momentsModel){
         if(momentsModel.getUserId()!=0&&momentsModel.getContent()!=null) {
             if(momentsModel.getReleaseTime()==null) {
                 TimeZone time = TimeZone.getTimeZone("ETC/GMT-8");
@@ -28,18 +32,17 @@ public class MomentsService {
                 momentsModel.setReleaseTime(new Date());
                 //时间差8小时，未解决
             }
-            momentsMapper.insertMoments(momentsModel);
-            return MomentsConstResponse.MOMENTS_RELEASE_SUCCESS;
+            return momentsMapper.insertMoments(momentsModel);
         }
         else
-            return MomentsConstResponse.MOMENTS_RELEASE_FAILED;
+            return -1;
     }
 
-    public List<MomentsModel> selectUserAllMoments(int userId){
+    public Page<MomentsModel> selectUserAllMoments(int userId){
        return momentsMapper.selectUserAllMoments(userId);
     }
 
-    public void deleteUserMoments(int momentsId){
+    public String deleteUserMoments(int momentsId){
         MomentsModel momentsModel = momentsMapper.findMomentsById(momentsId);
         if(momentsModel!=null) {
             if (momentsModel.getImage() != null)
@@ -50,25 +53,23 @@ public class MomentsService {
                 }
                 int id  =momentsModel.getMomentsId();
             commentsService.deleteCommentByMomentsId(id);
+            likesService.removeAllLikes(id);
             momentsMapper.deleteUserMoments(momentsId);
+            return MomentsConstResponse.MOMENTS_DELETE_SUCCESS;
         }
+       return MomentsConstResponse.MOMENTS_NOT_EXISTED;
     }
 
-    public List<MomentsModel> getAllFollowingMoments(int userId){
+    public Page<MomentsModel> getAllFollowingMoments(int userId){
         return momentsMapper.findAllFollowingMoments(userId);
+
     }
 
     public String  upLoadImage(int momentsId,String imageUrl){
         String image = null;
-        MomentsModel momentsModel = momentsMapper.findMomentsById(momentsId);
-        if(momentsModel.getImage()==null) {
-            momentsMapper.storeImage(imageUrl, momentsId);
-            return image;
-        }else{
-            image=momentsModel.getImage();
-            momentsMapper.storeImage(imageUrl, momentsId);
-            return image;
-        }
+        momentsMapper.storeImage(imageUrl, momentsId);
+        System.out.println(imageUrl);
+        return image;
     }
     public int addLikes(int momentsId,int num){
         momentsMapper.addLikes(momentsId);

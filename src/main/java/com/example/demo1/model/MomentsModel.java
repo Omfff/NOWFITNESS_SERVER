@@ -12,6 +12,7 @@ public class MomentsModel {
 
     private String userPhoto;
     private String userName;
+    private String nickName;
 
     private String content;
     private Date releaseTime;
@@ -20,6 +21,7 @@ public class MomentsModel {
 
     private int commentsNum;
     private boolean isLiked;
+    private List<String> likesName;
     //private List<CommentsModel> commentsModelList;
 
 

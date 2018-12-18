@@ -6,6 +6,7 @@ import com.example.demo1.util.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import sun.rmi.runtime.Log;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
@@ -27,12 +28,7 @@ private MomentsService momentsService;
             return PhotoConstResponse.PIC_UPLOAD_FAILED;
         }else{
             String imageName = momentsService.upLoadImage(momentsId,photoName);
-            if(imageName!=null)
-                try {
-                    deleteImage(imageName);
-                }catch (IOException e){
-                    e.printStackTrace();
-                }
+            System.out.println(  "upLoadMomentsImage: "+photoName);
             return PhotoConstResponse.PIC_UPLOAD_SUCCEED;
         }
 

@@ -17,4 +17,7 @@ public class RepliesModel {
 
     private String fromUserName;
     private String toUserName;
+
+    private String fromUserNickName;
+    private String toUserNickName;
 }

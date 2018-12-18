@@ -2,18 +2,21 @@ package com.example.demo1.mapper;
 
 import com.example.demo1.model.MomentsModel;
 import com.example.demo1.model.StepsDataModel;
+import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.*;
 
 import java.util.Date;
 import java.util.List;
 @Mapper
 public interface MomentsMapper {
-    @Insert({"INSERT INTO `nowfitness`.`moments` (userId,content,releaseTime,image,likes) value(#{userId},#{content},#{releaseTime},#{image},#{likes})"})
+    @Insert({"INSERT INTO `nowfitness`.`moments` (momentsId,userId,content,releaseTime,image,likes) value(#{momentsId},#{userId},#{content},#{releaseTime},#{image},#{likes}) "})
+    @SelectKey(statement = "select LAST_INSERT_ID() as momentsId",keyProperty = "momentsId",before = false,resultType = int.class)
         //void insertStepsData(@Param("id")int id, @Param("date") Date date,@Param("steps")int steps);
-    void insertMoments(MomentsModel momentsModel);
+    //@Options(useGeneratedKeys = true, keyProperty = "momentsId", keyColumn = "momentsId")
+        int insertMoments(MomentsModel momentsModel);
 
     @Select("SELECT * FROM `nowfitness`.`moments` where userId = #{userId} ")
-    List<MomentsModel> selectUserAllMoments(int userId);
+    Page<MomentsModel> selectUserAllMoments(int userId);
 
     @Delete("DELETE FROM `nowfitness`.`moments` WHERE momentsId = #{momentsId} ")
     void deleteUserMoments(int momentsId);
@@ -22,7 +25,7 @@ public interface MomentsMapper {
     int findMomentsId(int userId, Date releaseTime);
 
     @Select("SELECT * FROM `nowfitness`.`moments` WHERE userId IN ( SELECT followId FROM `nowfitness`.`following` where userId = #{userId}) ORDER BY `releaseTime` DESC")
-    List<MomentsModel> findAllFollowingMoments(@Param("userId") int userId);
+    Page<MomentsModel> findAllFollowingMoments(@Param("userId") int userId);
 
     @Update("UPDATE `nowfitness`.`moments` SET `likes` = `likes`+1 WHERE `momentsId` = #{momentsId} ;")
     void addLikes(@Param("momentsId")int momentsId);

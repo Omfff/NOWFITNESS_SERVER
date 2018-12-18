@@ -18,4 +18,8 @@ public interface StepsDataMapper {
 
     @Update("UPDATE `nowfitness`.`steps_data` SET `steps` = #{steps},`calories` = #{calories} WHERE `id` = #{id} AND `date` = CURRENT_DATE() ;")
     int updateStepsData(StepsDataModel stepsDataModel);
+
+    @Select( "SELECT EXISTS(SELECT * FROM `nowfitness`.`steps_data` WHERE  `id` = #{id} AND `date` = CURRENT_DATE())")//select isnull((select top(1) 1 from `nowfitness`.`likes` where momentsId=#{momentsId} and likesId=#{likesId} ), 0)")
+    boolean checkStepsDataExisted(@Param("id")int userId);
+
 }

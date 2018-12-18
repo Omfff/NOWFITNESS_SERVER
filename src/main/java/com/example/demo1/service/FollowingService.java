@@ -18,18 +18,18 @@ public class FollowingService {
     UserMapper userMapper;
 
     public String following(int userId,int followId){
-        if(userId>0&&followId>0) {
+        if(followingMapper.checkFollowExisted(userId,followId)==false) {
             followingMapper.following(userId, followId);
             return FollowingConstResponse.FOLLOWING_SUCCEED;
         }else{
-            return FollowingConstResponse.FOLLOWING_FAILED;
+            return FollowingConstResponse.FOLLOWING_EXISTED;
         }
     }
 
     public String cancelFollow(int userId,int followId){
-        if(userId>0&&followId>0) {
+        if(followingMapper.checkFollowExisted(userId,followId)==true) {
             followingMapper.notFollowing(userId, followId);
-            return FollowingConstResponse.FOLLOWING_SUCCEED;
+            return FollowingConstResponse.CANCEL_FOLLOWING_SUCCEED;
         }else{
             return FollowingConstResponse.CANCEL_FOLLOWING_FAILED;
         }

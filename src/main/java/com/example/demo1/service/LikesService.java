@@ -40,11 +40,22 @@ public class LikesService {
             return MomentsConstResponse.MOMENTS_LIKES_ALREADY_REMOVED;
     }
 
+    public void removeAllLikes(int momentsId){
+        likesMapper.removeAllLikes(momentsId);
+    }
     public List<UserModel> getLikesUsers(int momentsId){
         int [] supporterIds = likesMapper.getLikeUsersIds(momentsId);
         List<UserModel> supporters = new ArrayList<>();
         for(int id:supporterIds){
             supporters.add(userMapper.findById(id));
+        }
+        return supporters;
+    }
+    public List<String> getLikesUsersName(int momentsId){
+        int [] supporterIds = likesMapper.getLikeUsersIds(momentsId);
+        List<String> supporters = new ArrayList<>();
+        for(int id:supporterIds){
+            supporters.add(userMapper.findById(id).getUserName());
         }
         return supporters;
     }
