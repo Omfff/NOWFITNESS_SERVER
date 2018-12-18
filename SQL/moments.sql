@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80013
 File Encoding         : 65001
 
-Date: 2018-11-21 18:16:00
+Date: 2018-11-26 21:00:32
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -32,8 +32,7 @@ CREATE TABLE `moments` (
 -- ----------------------------
 -- Records of moments
 -- ----------------------------
-INSERT INTO `moments` VALUES ('1', '1', 'my first moments', '2018-11-20 16:47:37', null, '3');
-INSERT INTO `moments` VALUES ('3', '3', 'my third moments', '2018-11-20 16:49:01', null, '0');
+INSERT INTO `moments` VALUES ('1', '1', 'my first moments', '2018-11-20 16:47:37', '', '3');
 INSERT INTO `moments` VALUES ('4', '1', '1my first moments', '2018-11-20 16:49:40', null, '0');
 INSERT INTO `moments` VALUES ('5', '1', '2my first moments', '2018-11-20 16:49:47', null, '0');
 INSERT INTO `moments` VALUES ('6', '1', '3my first moments', '2018-11-20 16:49:56', null, '0');
