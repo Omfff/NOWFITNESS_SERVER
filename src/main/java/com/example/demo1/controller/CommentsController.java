@@ -46,17 +46,22 @@ public class CommentsController {
      }
      @RequestMapping(value = "/moments/{momentsId}/comments" ,method = RequestMethod.GET)
     public BaseResponse getAllCommentsAndReplies(@PathVariable("momentsId") int momentsId){
-
+         CommentsResponseModel commentsResponseModel = new CommentsResponseModel();
          List<CommentsModel> commentsModelsList =  commentsService.selectAllCommentsUnderMoments(momentsId);
          List<CommentsModel>  commentsList =commentsService.completeCommentsInformation(commentsModelsList);
+         commentsResponseModel.setCommentsList(commentsList);
+         if(commentsList!=null)
+            commentsResponseModel.setCommentsNum(commentsList.size());
+         else
+             commentsResponseModel.setCommentsNum(0);
          BaseResponse baseResponse = new BaseResponse((new Timestamp(System.currentTimeMillis())).toString()
                  ,Code.OK
                  ,Code.NO_ERROR_MESSAGE
                  ,Code.NO_MESSAGE_AVAIABLE
                  ,"/moments/"+String.valueOf(momentsId)+"/comments"
-                 ,commentsList);
-         if (commentsList==null)
-             baseResponse.setStatus(Code.NOT_FOUND);
+                 ,commentsResponseModel);
+         /*if (commentsList==null)
+             baseResponse.setStatus(Code.NOT_FOUND);*/
          return baseResponse;
      }
 }

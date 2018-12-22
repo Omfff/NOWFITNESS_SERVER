@@ -31,7 +31,9 @@ public class StepsDataService {
         return StepsDataConst.STEPS_UPDATE_SUCCEED;
     }
 
-    public List<StepsDataModel> getAllStepsData(int id){
-       return  stepsDataMapper.findUserAllStepsData(id);
+    public List<StepsDataModel> getStepsData(int id,int days){
+
+        int queryDays = -1*days;
+        return  stepsDataMapper.findUserAllStepsData(id,queryDays);
     }
 }

@@ -4,6 +4,7 @@ import com.example.demo1.mapper.FollowingMapper;
 import com.example.demo1.mapper.UserMapper;
 import com.example.demo1.model.UserModel;
 import com.example.demo1.model.constValue.FollowingConstResponse;
+import com.example.demo1.util.FilterUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,17 +36,22 @@ public class FollowingService {
         }
     }
 
-    public int[] findUserFollowingId(int userId){
-        return followingMapper.findUserFollowingIds(userId);
-    }
 
     public int[] findUserFansId(int userId){return followingMapper.findUserFans(userId);}
     public List<UserModel> getFollowinguUser(int userId){
         int [] followingIds = followingMapper.findUserFollowingIds(userId);
         List<UserModel> followingUsers = new ArrayList<>();
         for(int id:followingIds){
-            followingUsers.add(userMapper.findById(id));
+            followingUsers.add(FilterUtils.filterUserPrivateInfo(userMapper.findById(id)));
         }
         return followingUsers;
+    }
+    public List<UserModel> findUserFans(int userId){
+        int [] fansIdList = followingMapper.findUserFollowingIds(userId);
+        List<UserModel> fansList = new ArrayList<>();
+        for(int id :fansIdList){
+            fansList.add(FilterUtils.filterUserPrivateInfo(userMapper.findById(id)));
+        }
+        return fansList;
     }
 }

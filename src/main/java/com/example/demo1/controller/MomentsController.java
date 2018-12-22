@@ -87,7 +87,7 @@ public class MomentsController {
                 , Code.OK
                 ,Code.NO_ERROR_MESSAGE
                 ,Code.NO_MESSAGE_AVAIABLE
-                ,"/user/"+String.valueOf(userId)+"/moments"
+                ,"/user/"+String.valueOf(userId)+"/moments/"+String.valueOf(pageNo)
                 ,completeMomentsInfo(momentsModelList,userId));
         return baseResponse;
     }
@@ -100,11 +100,23 @@ public class MomentsController {
                 ,Code.OK
                 ,Code.NO_ERROR_MESSAGE
                 ,Code.NO_MESSAGE_AVAIABLE
-                ,"/user/"+String.valueOf(userId)+"/following/moments"
+                ,"/user/"+String.valueOf(userId)+"/following/moments/"+String.valueOf(pageNo)
                 ,completeMomentsInfo(momentsModelList,userId));
         return baseResponse;
     }
 
+    @RequestMapping(value = "/user/{userId}/nearBy/moments/{pageNum}",method = RequestMethod.GET)
+    public BaseResponse getNearByMoments(@PathVariable("userId") int userId,@PathVariable("pageNum")int pageNo){
+        PageHelper.startPage(pageNo,10);
+        PageInfo<MomentsModel> momentsModelList = new PageInfo<>(momentsService.getNearByMoments(userId));
+        BaseResponse baseResponse = new BaseResponse((new Timestamp(System.currentTimeMillis())).toString()
+                ,Code.OK
+                ,Code.NO_ERROR_MESSAGE
+                ,Code.NO_MESSAGE_AVAIABLE
+                ,"/user/"+String.valueOf(userId)+"/nearBy/moments/"+String.valueOf(pageNo)
+                ,completeMomentsInfo(momentsModelList,userId));
+        return baseResponse;
+    }
     @RequestMapping(value = "/moments/uploadPhoto", method = RequestMethod.POST)
     public @ResponseBody
     ConstResponseModel uploadImage(@RequestParam("file") MultipartFile file, @RequestParam("momentsId") String momentsId) {

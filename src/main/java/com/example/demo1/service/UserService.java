@@ -56,7 +56,7 @@ public class UserService {
 
     public String updateUserDate(UserModel userModel){
         UserModel exsitedUser =userMapper.findUserByName(userModel.getUserName());
-        if(exsitedUser.getPassword().equals(JblogUtil.MD5(userModel.getPassword()+exsitedUser.getSalt()))) {
+        if(exsitedUser.getPassword().equals(userModel.getPassword())) {
            if(userModel.getSex()!=null&&userModel.getSex()!="")
                exsitedUser.setSex(userModel.getSex());
            if(userModel.getWeight()!=0.0)

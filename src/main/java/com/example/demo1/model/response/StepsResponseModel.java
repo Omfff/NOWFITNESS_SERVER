@@ -7,5 +7,6 @@ import java.util.List;
 
 @Data
 public class StepsResponseModel {
+    private int days;
     private List<StepsDataModel> stepsDataModelList;
 }

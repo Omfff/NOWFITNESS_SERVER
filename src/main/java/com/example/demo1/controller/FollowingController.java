@@ -5,6 +5,7 @@ import com.example.demo1.model.response.BaseResponse;
 import com.example.demo1.model.response.Code;
 import com.example.demo1.model.response.ConstResponseModel;
 import com.example.demo1.model.UserModel;
+import com.example.demo1.model.response.FollowingResposnseModel;
 import com.example.demo1.service.FollowingService;
 import com.example.demo1.service.UserService;
 import com.fasterxml.jackson.databind.ser.Serializers;
@@ -79,13 +80,31 @@ public class FollowingController {
 
     @RequestMapping(value = "/user/{userId}/following",method = RequestMethod.GET)
     public BaseResponse getAllFollowingUsers(@PathVariable("userId") int userId){
-
+        FollowingResposnseModel followingResposnseModel = new FollowingResposnseModel();
+        followingResposnseModel.setUsers(followingService.getFollowinguUser(userId));
+        if(followingResposnseModel.getUsers()!=null)
+            followingResposnseModel.setTotalNum(followingResposnseModel.getUsers().size());
         BaseResponse baseResponse = new BaseResponse((new Timestamp(System.currentTimeMillis())).toString()
                 ,Code.OK
                 ,Code.NO_ERROR_MESSAGE
                 ,Code.NO_MESSAGE_AVAIABLE
                 ,"/user/"+String.valueOf(userId)+"/following"
-                ,followingService.getFollowinguUser(userId));
+                ,followingResposnseModel);
+        return baseResponse;
+    }
+
+    @RequestMapping(value = "/user/{userId}/fans",method = RequestMethod.GET)
+    public BaseResponse getFans(@PathVariable("userId")int userId){
+        FollowingResposnseModel fansResposnseModel = new FollowingResposnseModel();
+        fansResposnseModel.setUsers(followingService.findUserFans(userId));
+        if(fansResposnseModel.getUsers()!=null)
+            fansResposnseModel.setTotalNum(fansResposnseModel.getUsers().size());
+        BaseResponse baseResponse = new BaseResponse((new Timestamp(System.currentTimeMillis())).toString()
+                ,Code.OK
+                ,Code.NO_ERROR_MESSAGE
+                ,Code.NO_MESSAGE_AVAIABLE
+                ,"/user/"+String.valueOf(userId)+"/fans"
+                ,fansResposnseModel);
         return baseResponse;
     }
 

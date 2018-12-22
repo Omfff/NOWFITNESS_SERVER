@@ -65,6 +65,10 @@ public class MomentsService {
 
     }
 
+    public Page<MomentsModel> getNearByMoments(int userId){
+        return momentsMapper.findNearByMoments(userId);
+    }
+
     public String  upLoadImage(int momentsId,String imageUrl){
         String image = null;
         momentsMapper.storeImage(imageUrl, momentsId);
@@ -75,5 +79,7 @@ public class MomentsService {
         momentsMapper.addLikes(momentsId);
         return 1;
     }
+
+
 
 }

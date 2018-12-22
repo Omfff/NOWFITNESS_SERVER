@@ -15,7 +15,7 @@ public interface MomentsMapper {
     //@Options(useGeneratedKeys = true, keyProperty = "momentsId", keyColumn = "momentsId")
         int insertMoments(MomentsModel momentsModel);
 
-    @Select("SELECT * FROM `nowfitness`.`moments` where userId = #{userId} ")
+    @Select("SELECT * FROM `nowfitness`.`moments` where userId = #{userId} ORDER BY `releaseTime` DESC")
     Page<MomentsModel> selectUserAllMoments(int userId);
 
     @Delete("DELETE FROM `nowfitness`.`moments` WHERE momentsId = #{momentsId} ")
@@ -24,8 +24,11 @@ public interface MomentsMapper {
     @Select("SELECT momentsId FROM `nowfitness`.`moments` where userId = #{userId} and releaseTime = #{releaseTime} ")
     int findMomentsId(int userId, Date releaseTime);
 
-    @Select("SELECT * FROM `nowfitness`.`moments` WHERE userId IN ( SELECT followId FROM `nowfitness`.`following` where userId = #{userId}) ORDER BY `releaseTime` DESC")
+    @Select("SELECT * FROM `nowfitness`.`moments` WHERE userId IN ( SELECT followId FROM `nowfitness`.`following` where userId = #{userId} AND followId IS NOT NULL) ORDER BY `releaseTime` DESC")
     Page<MomentsModel> findAllFollowingMoments(@Param("userId") int userId);
+
+    @Select("SELECT * FROM `nowfitness`.`moments` WHERE userId  NOT IN ( SELECT followId FROM `nowfitness`.`following` where userId = #{userId} AND followId IS NOT NULL) AND userId != #{userId} ORDER BY `releaseTime` DESC")
+    Page<MomentsModel> findNearByMoments(@Param("userId") int userId);
 
     @Update("UPDATE `nowfitness`.`moments` SET `likes` = `likes`+1 WHERE `momentsId` = #{momentsId} ;")
     void addLikes(@Param("momentsId")int momentsId);
