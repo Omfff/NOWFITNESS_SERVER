@@ -49,9 +49,13 @@ public class FollowingService {
     public List<UserModel> findUserFans(int userId){
         int [] fansIdList = followingMapper.findUserFollowingIds(userId);
         List<UserModel> fansList = new ArrayList<>();
-        for(int id :fansIdList){
-            fansList.add(FilterUtils.filterUserPrivateInfo(userMapper.findById(id)));
+        for(int i=0;i<fansIdList.length;i++){
+            fansList.add(FilterUtils.filterUserPrivateInfo(userMapper.findById(fansIdList[i])));
+            fansList.get(i).setStates(followingMapper.checkFollowExisted(fansIdList[i],userId));
         }
         return fansList;
+    }
+    public boolean checkFollowingStates(int userId,int followId){
+        return followingMapper.checkFollowExisted(userId,followId);
     }
 }

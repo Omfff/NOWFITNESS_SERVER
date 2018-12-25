@@ -1,11 +1,8 @@
 package com.example.demo1.controller;
 
 import com.example.demo1.model.constValue.FollowingConstResponse;
-import com.example.demo1.model.response.BaseResponse;
-import com.example.demo1.model.response.Code;
-import com.example.demo1.model.response.ConstResponseModel;
+import com.example.demo1.model.response.*;
 import com.example.demo1.model.UserModel;
-import com.example.demo1.model.response.FollowingResposnseModel;
 import com.example.demo1.service.FollowingService;
 import com.example.demo1.service.UserService;
 import com.fasterxml.jackson.databind.ser.Serializers;
@@ -107,5 +104,16 @@ public class FollowingController {
                 ,fansResposnseModel);
         return baseResponse;
     }
+    @RequestMapping(value = "/user/{userId}/anotherUser/{anotherUserId}",method = RequestMethod.GET)
+    public BaseResponse isFollowing(@PathVariable("userId")int userId,@PathVariable("anotherUserId")int anotherUserId){
+        BaseResponse baseResponse = new BaseResponse((new Timestamp(System.currentTimeMillis())).toString()
+                ,Code.OK
+                ,Code.NO_ERROR_MESSAGE
+                ,Code.NO_MESSAGE_AVAIABLE
+                ,"/user/"+String.valueOf(userId)+"/anotherUser/"+String.valueOf(anotherUserId)
+                ,new IsFollowingResponseModel(followingService.checkFollowingStates(userId,anotherUserId)));
+        return baseResponse;
+    }
+
 
 }
