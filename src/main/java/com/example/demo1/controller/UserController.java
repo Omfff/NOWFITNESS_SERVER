@@ -166,6 +166,18 @@ public class UserController {
         }
         return baseResponse;
     }
+    @RequestMapping(value="/user/password",method = RequestMethod.POST)
+    public BaseResponse changePassword(@RequestParam("userId") int userId, @RequestParam("password") String password){
+
+        BaseResponse baseResponse = new BaseResponse((new Timestamp(System.currentTimeMillis())).toString()
+                ,Code.CREATED
+                ,Code.NO_ERROR_MESSAGE
+                , userService.changeUserPassword(userId,password)
+                ,"/user/password"
+                ,null);
+        return baseResponse;
+    }
+
 
 
 }

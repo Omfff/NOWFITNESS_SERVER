@@ -16,11 +16,15 @@ public interface UserMapper {
     @Update("UPDATE `nowfitness`.`user` SET `token` = #{token} WHERE `id` = #{id};")
     int updateUserToken(@Param("id") int id,@Param("token") String token);
 
+
     @Select("SELECT * FROM `nowfitness`.`user` where id = #{id} ")
     UserModel findById(int id);
 
     @Select("SELECT id FROM `nowfitness`.`user` where userName = #{userName} ")
     int findUserId(String userName);
+
+    @Update("UPDATE `nowfitness`.`user` SET `password` = #{password},`salt` = #{salt} WHERE `id` = #{id};")
+    int updateUserPassword(@Param("id") int id ,@Param("password") String password,@Param("salt")String salt);
 
     @Update("UPDATE `nowfitness`.`user` SET `height` = #{height},`weight` = #{weight},`sex` = #{sex},`age` = #{age},`picture` = #{picture},`nickName`=#{nickName} WHERE `id` = #{id};")
     int updateUserData(UserModel userModel);

@@ -106,6 +106,16 @@ public class UserService {
                 userMapper.updateUserPhoto(id,name);
                 return image;
         }
-
+    }
+    public String changeUserPassword(int id,String password){
+        UserModel userModel = userMapper.findById(id);
+        if(userModel!=null) {
+            String salt = UUID.randomUUID().toString().substring(0, 5);
+            String realPassword = JblogUtil.MD5(password + salt);
+            userMapper.updateUserPassword(id,realPassword,salt);
+            return UserConstResponse.PASSWORD_CHANGE_SUCCESS;
+        }else{
+            return UserConstResponse.PASSWORD_CHANGE_FAIL;
+        }
     }
 }

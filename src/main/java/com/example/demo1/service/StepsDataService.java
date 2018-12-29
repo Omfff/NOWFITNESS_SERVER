@@ -26,7 +26,7 @@ public class StepsDataService {
         if(stepsDataMapper.checkStepsDataExisted(stepsDataModel.getId())==false) {
             stepsDataMapper.insertStepsData(stepsDataModel);
         }else {
-            stepsDataMapper.updateStepsData(stepsDataModel);;
+            stepsDataMapper.updateStepsData(stepsDataModel);
         }
         return StepsDataConst.STEPS_UPDATE_SUCCEED;
     }

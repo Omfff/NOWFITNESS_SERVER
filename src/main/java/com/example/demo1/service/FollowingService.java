@@ -47,11 +47,11 @@ public class FollowingService {
         return followingUsers;
     }
     public List<UserModel> findUserFans(int userId){
-        int [] fansIdList = followingMapper.findUserFollowingIds(userId);
+        int [] fansIdList = followingMapper.findUserFans(userId);
         List<UserModel> fansList = new ArrayList<>();
         for(int i=0;i<fansIdList.length;i++){
             fansList.add(FilterUtils.filterUserPrivateInfo(userMapper.findById(fansIdList[i])));
-            fansList.get(i).setStates(followingMapper.checkFollowExisted(fansIdList[i],userId));
+            fansList.get(i).setStates(followingMapper.checkFollowExisted(userId,fansIdList[i]));
         }
         return fansList;
     }
