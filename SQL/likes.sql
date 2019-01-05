@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80013
 File Encoding         : 65001
 
-Date: 2018-11-21 18:15:48
+Date: 2018-12-31 00:45:03
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -30,3 +30,5 @@ CREATE TABLE `likes` (
 INSERT INTO `likes` VALUES ('1', '1');
 INSERT INTO `likes` VALUES ('1', '5');
 INSERT INTO `likes` VALUES ('1', '3');
+INSERT INTO `likes` VALUES ('32', '1');
+INSERT INTO `likes` VALUES ('21', '1');

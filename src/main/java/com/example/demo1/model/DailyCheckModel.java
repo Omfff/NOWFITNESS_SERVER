@@ -9,5 +9,5 @@ import java.sql.Date;
 public class DailyCheckModel {
     private int id;
     private int userId;
-    private Date date;
+    private String date;
 }

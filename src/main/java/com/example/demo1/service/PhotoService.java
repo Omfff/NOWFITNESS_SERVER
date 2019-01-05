@@ -13,7 +13,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-
+/**
+ * @Description:  图片各种操作的业务逻辑处理层，为controller层提供服务，调用mapper进行数据库的相关操作
+ */
 @Service
 public class PhotoService {
 
@@ -73,10 +75,12 @@ private MomentsService momentsService;
     public void deleteImage(String fileName)throws IOException{
         File foler = new File("C://image");
         File [] files = foler.listFiles();
-        for(File file:files){
-            if(file.getName().equals(fileName)){
-                file.delete();
-                break;
+        if(!fileName.equals("60528.png")) {
+            for (File file : files) {
+                if (file.getName().equals(fileName)) {
+                    file.delete();
+                    break;
+                }
             }
         }
     }

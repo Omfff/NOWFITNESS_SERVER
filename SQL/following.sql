@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80013
 File Encoding         : 65001
 
-Date: 2018-11-26 21:00:03
+Date: 2018-12-31 00:45:08
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -27,8 +27,6 @@ CREATE TABLE `following` (
 -- ----------------------------
 -- Records of following
 -- ----------------------------
-INSERT INTO `following` VALUES ('1', '2');
 INSERT INTO `following` VALUES ('2', '1');
-INSERT INTO `following` VALUES ('1', '3');
-INSERT INTO `following` VALUES ('1', '4');
+INSERT INTO `following` VALUES ('1', '7');
 INSERT INTO `following` VALUES ('1', '5');

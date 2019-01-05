@@ -15,6 +15,9 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.stream.BaseStream;
 
+ /**
+  * @Description:    接收前端传来的关于动态评论的请求数据，调用Service进行相应的业务处理
+  */
 @RestController
 public class CommentsController {
     @Autowired

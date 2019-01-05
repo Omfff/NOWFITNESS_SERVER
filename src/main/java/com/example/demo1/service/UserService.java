@@ -4,11 +4,14 @@ import com.example.demo1.mapper.UserMapper;
 import com.example.demo1.model.UserModel;
 import com.example.demo1.model.constValue.UserConstResponse;
 import com.example.demo1.util.JblogUtil;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
-
+/**
+ * @Description:  用户个人信息的业务逻辑处理层，为controller层提供服务，调用mapper进行数据库的相关操作
+ */
 @Service
 public class UserService {
     @Autowired
@@ -107,15 +110,16 @@ public class UserService {
                 return image;
         }
     }
-    public String changeUserPassword(int id,String password){
+    public UserModel changeUserPassword(int id, String password){
         UserModel userModel = userMapper.findById(id);
         if(userModel!=null) {
             String salt = UUID.randomUUID().toString().substring(0, 5);
             String realPassword = JblogUtil.MD5(password + salt);
             userMapper.updateUserPassword(id,realPassword,salt);
-            return UserConstResponse.PASSWORD_CHANGE_SUCCESS;
+            userModel.setSalt(salt);
+            return userModel;
         }else{
-            return UserConstResponse.PASSWORD_CHANGE_FAIL;
+            return userModel;
         }
     }
 }

@@ -6,6 +6,9 @@ import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
+ /**
+  * @Description:  数据库中daily_check表对应的操作接口
+  */
 @Mapper
 public interface DailyCheckMapper {
     @Insert({"INSERT INTO `nowfitness`.`daily_check` (userId,date) value(#{userId},CURRENT_DATE())"})

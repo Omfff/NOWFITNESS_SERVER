@@ -7,10 +7,9 @@ import java.security.MessageDigest;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by nowcoder on 2016/7/3.
- * @author tuzhenyu
- */
+ /**
+  * @Description:  对密码进行MD5加密的工具类
+  */
 public class JblogUtil {
     public static Map<String,String> categoryMap;
     static {

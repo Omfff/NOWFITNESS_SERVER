@@ -1,5 +1,6 @@
 package com.example.demo1.Exception;
 
+
 public class GlobalException extends Exception {
 
     private int code;

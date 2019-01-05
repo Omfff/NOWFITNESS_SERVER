@@ -15,27 +15,15 @@ import org.springframework.web.bind.annotation.RestController;
 import java.sql.Timestamp;
 import java.util.List;
 
+ /**
+  * @Description:     接收前端传来的关于用户关注信息的请求数据，调用Service进行相应的业务处理
+  */
 @RestController
 public class FollowingController {
     @Autowired
     FollowingService followingService;
     @Autowired
     UserService userService;
-
-    /*@RequestMapping(value = "/user/{userName}/following/{followingName}",method = RequestMethod.POST)
-    public BaseResponse follow(@PathVariable("userName") String userName, @PathVariable("followingName")String followingName){
-        String result = followingService.following(userService.findUserId(userName),userService.findUserId(followingName));
-        BaseResponse baseResponse = new BaseResponse((new Timestamp(System.currentTimeMillis())).toString()
-                ,Code.CREATED
-                ,Code.NO_ERROR_MESSAGE
-                ,result
-                ,"/user/"+userName+"/following/"+followingName
-                ,null);
-        if(!result.equals(FollowingConstResponse.FOLLOWING_SUCCEED)){
-            baseResponse.setStatus(Code.OK);
-        }
-        return baseResponse;
-    }*/
 
     @RequestMapping(value = "/user/{userId}/following/{followId}",method = RequestMethod.POST)
     public BaseResponse follow(@PathVariable("userId")int userId, @PathVariable("followId") int followId){
@@ -62,18 +50,6 @@ public class FollowingController {
                 ,null);
         return baseResponse;
     }
-
-    //还没修改
-    /*@RequestMapping(value = "/user/{userId}/following",method = RequestMethod.GET)
-    public BaseResponse getAllFollowing(@PathVariable("userId") int userId){
-        BaseResponse baseResponse = new BaseResponse((new Timestamp(System.currentTimeMillis())).toString()
-                ,Code.OK
-                ,Code.NO_ERROR_MESSAGE
-                ,Code.NO_MESSAGE_AVAIABLE
-                ,"/user/"+String.valueOf(userId)+"/following"
-                ,followingService.findUserFollowingId(userId));
-        return baseResponse;
-    }*/
 
     @RequestMapping(value = "/user/{userId}/following",method = RequestMethod.GET)
     public BaseResponse getAllFollowingUsers(@PathVariable("userId") int userId){

@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Timestamp;
 
+ /**
+  * @Description:    接收前端传来的关于用户打卡的请求数据，调用Service进行相应的业务处理
+  */
 @RestController
 public class DailyCheckController {
     @Autowired

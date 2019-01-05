@@ -7,11 +7,8 @@ import com.example.demo1.model.DailyCheckModel;
 import com.example.demo1.model.constValue.BaseUrl;
 import com.example.demo1.model.constValue.PhotoConstResponse;
 import com.example.demo1.model.constValue.UserConstResponse;
-import com.example.demo1.model.response.BaseResponse;
-import com.example.demo1.model.response.Code;
-import com.example.demo1.model.response.ConstResponseModel;
+import com.example.demo1.model.response.*;
 import com.example.demo1.model.UserModel;
-import com.example.demo1.model.response.UserInfoResponseModel;
 import com.example.demo1.service.*;
 import com.example.demo1.util.JblogUtil;
 import com.example.demo1.util.PairUtils;
@@ -28,7 +25,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-
+ /**
+  * @Description:    接收前端传来的关于用户个人信息方面的请求数据，调用Service进行相应业务处理
+  */
 @RestController
 public class UserController {
     @Autowired
@@ -71,6 +70,7 @@ public class UserController {
         userModel.setPassword(JblogUtil.MD5(password+userModel.getSalt()));
         userModel.setToken(JblogUtil.MD5(userName+UUID.randomUUID().toString().substring(0,5)+password));
         userModel.setPicture("60528.png");///默认照片
+        userModel.setNickName("无名氏");
         String result = userService.register(userModel);
         BaseResponse baseResponse = new BaseResponse((new Timestamp(System.currentTimeMillis())).toString()
                 ,Code.CREATED
@@ -120,6 +120,7 @@ public class UserController {
                 userInfoResponseModel.setAge(userModel.getAge());
                 userInfoResponseModel.setUserName(userModel.getUserName());
                 userInfoResponseModel.setPassword(userModel.getPassword());
+                userInfoResponseModel.setSalt(userModel.getSalt());
                 userInfoResponseModel.setHeight(userModel.getHeight());
                 userInfoResponseModel.setWeight(userModel.getWeight());
                 userInfoResponseModel.setSex(userModel.getSex());
@@ -132,7 +133,7 @@ public class UserController {
                 userInfoResponseModel.setFans(followingService.findUserFansId(userId).length);
                 userInfoResponseModel.setMomentsNum(momentsService.selectUserAllMoments(userId).size());
                 List<DailyCheckModel> dailyCheckModelList = dailyCheckService.getUserAllDailyCheck(userModel.getId());
-                List<Date> dailyCheckList = new ArrayList<>();
+                List<String> dailyCheckList = new ArrayList<>();
                 for (DailyCheckModel dailyCheckModel : dailyCheckModelList) {
                     dailyCheckList.add(dailyCheckModel.getDate());
                 }
@@ -168,13 +169,23 @@ public class UserController {
     }
     @RequestMapping(value="/user/password",method = RequestMethod.POST)
     public BaseResponse changePassword(@RequestParam("userId") int userId, @RequestParam("password") String password){
+        String salt = "";
+        String message = UserConstResponse.PASSWORD_CHANGE_SUCCESS;
+        String status = Code.NO_ERROR_MESSAGE;
+        UserModel  userModel = userService.changeUserPassword(userId,password);
+        if(userModel!=null){
+            salt = userModel.getSalt();
+        }else{
+            message = UserConstResponse.PASSWORD_CHANGE_FAIL;
+            status  = Code.NO_MESSAGE_AVAIABLE;
+        }
 
         BaseResponse baseResponse = new BaseResponse((new Timestamp(System.currentTimeMillis())).toString()
                 ,Code.CREATED
-                ,Code.NO_ERROR_MESSAGE
-                , userService.changeUserPassword(userId,password)
+                ,status
+                ,message
                 ,"/user/password"
-                ,null);
+                ,new SaltResponseModel(salt));
         return baseResponse;
     }
 

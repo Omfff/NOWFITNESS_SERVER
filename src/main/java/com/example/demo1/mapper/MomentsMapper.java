@@ -7,6 +7,9 @@ import org.apache.ibatis.annotations.*;
 
 import java.util.Date;
 import java.util.List;
+ /**
+  * @Description:  数据库中moments表对应的操作接口
+  */
 @Mapper
 public interface MomentsMapper {
     @Insert({"INSERT INTO `nowfitness`.`moments` (momentsId,userId,content,releaseTime,image,likes) value(#{momentsId},#{userId},#{content},#{releaseTime},#{image},#{likes}) "})

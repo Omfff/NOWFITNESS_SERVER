@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.Timestamp;
 import java.util.List;
 
+ /**
+  * @Description:     接收前端传来的关于用户动态回复信息的请求数据，调用Service进行相应的业务处理
+  */
 @RestController
 public class RepliesController {
     @Autowired

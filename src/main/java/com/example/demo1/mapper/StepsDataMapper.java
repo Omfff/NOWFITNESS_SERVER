@@ -7,6 +7,9 @@ import org.apache.ibatis.annotations.*;
 import java.util.Date;
 import java.util.List;
 
+ /**
+  * @Description:   数据库中steps_data表对应的操作接口
+  */
 @Mapper
 public interface StepsDataMapper {
     @Insert({"INSERT INTO `nowfitness`.`steps_data` (id,date,steps,calories) value(#{id},CURRENT_DATE(),#{steps},#{calories})"})

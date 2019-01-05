@@ -7,6 +7,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+ /**
+  * @Description:   将文件存储到服务器文件夹的工具类
+  */
 public class FileUtils {
 
     /**

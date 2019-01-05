@@ -2,9 +2,9 @@ package com.example.demo1.util;
 
 import java.util.UUID;
 
-/**
- * 生成文件名
- */
+ /**
+  * @Description:  生成唯一标识符UUID的工具类
+  */
 public class UUIDUtils {
     public static String getUUID(){
         return UUID.randomUUID().toString().replace("-", "");

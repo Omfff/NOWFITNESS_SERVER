@@ -2,6 +2,9 @@ package com.example.demo1.mapper;
 
 import org.apache.ibatis.annotations.*;
 
+ /**
+  * @Description:  数据库中likes表对应的操作接口
+  */
 @Mapper
 public interface LikesMapper {
 

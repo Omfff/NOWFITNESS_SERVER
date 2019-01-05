@@ -3,11 +3,14 @@ package com.example.demo1.mapper;
 import com.example.demo1.model.UserModel;
 import org.apache.ibatis.annotations.*;
 
+ /**
+  * @Description:  数据库中user表对应的操作接口
+  */
 @Mapper
 public interface UserMapper {
 
-    @Insert({"INSERT INTO `nowfitness`.`user` (userName,password,height,weight,sex,age,picture,states,salt,token) " +
-            "value(#{userName},#{password},#{height},#{weight},#{sex},#{age},#{picture},#{states},#{salt},#{token})"})
+    @Insert({"INSERT INTO `nowfitness`.`user` (userName,password,height,weight,sex,age,picture,nickName,states,salt,token) " +
+            "value(#{userName},#{password},#{height},#{weight},#{sex},#{age},#{picture},#{nickName},#{states},#{salt},#{token})"})
     void register( UserModel userModel);
 
     @Select("SELECT * FROM `nowfitness`.`user` where userName = #{userName} ")

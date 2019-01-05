@@ -10,6 +10,7 @@ public class UserInfoResponseModel {
     private int id;
     private String userName;
     private String password;
+    private String salt;
     private double height;
     private double weight;
     private String sex;
@@ -21,6 +22,6 @@ public class UserInfoResponseModel {
     private int fans;
     private int momentsNum;
 
-    private List<Date> dailyCheckList;
+    private List<String> dailyCheckList;
 
 }

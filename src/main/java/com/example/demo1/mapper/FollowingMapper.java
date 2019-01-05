@@ -6,6 +6,9 @@ import org.apache.ibatis.annotations.*;
 import java.lang.reflect.Array;
 import java.util.List;
 
+ /**
+  * @Description:  数据库中following表对应的操作接口
+  */
 @Mapper
 public interface FollowingMapper {
     @Insert({"INSERT INTO `nowfitness`.`following` (userId,followId) value(#{userId},#{followId})"})

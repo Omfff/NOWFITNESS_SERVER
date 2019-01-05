@@ -16,19 +16,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.sql.Timestamp;
 
-
+ /**
+  * @Description:   接收前端传来的关于各类图片的请求数据，调用Service进行相应的业务处理
+  */
 @Controller
 public class PhotoController {
     @Autowired
     private PhotoService photoService;
 
-    /*@GetMapping(value="/user/image/preview")
-public ResponseEntity<Resource>preview(String name)throws FileNotFoundException{
-    InputStream inputStream = new FileInputStream(new File(name));
-    InputStreamResource inputStreamResource = new InputStreamResource(inputStream);
-    HttpHeaders headers = new HttpHeaders();
-    return new ResponseEntity<>(inputStreamResource,headers, HttpStatus.OK);
-}*/
     @RequestMapping(value = "/image/{imageName}",method = RequestMethod.GET)//?imageName=
     public BaseResponse getImage(HttpServletRequest request, HttpServletResponse response, @PathVariable("imageName") String imageName) {
         String path = "C://image/"+imageName;

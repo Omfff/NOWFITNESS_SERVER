@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * @Description:  动态点赞的业务逻辑处理层，为controller层提供服务，调用mapper进行数据库的相关操作
+ */
 @Service
 public class LikesService {
     @Autowired

@@ -13,6 +13,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
+/**
+ * @Description:  动态的业务逻辑处理层，为controller层提供服务，调用mapper进行数据库的相关操作
+ */
 @Service
 public class MomentsService {
     @Autowired

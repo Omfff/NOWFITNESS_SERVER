@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-
+ /**
+  * @Description:   对各类异常进行捕捉，并修改前端的的status
+  */
 @ControllerAdvice
 public class RestExceptionHandler
 {

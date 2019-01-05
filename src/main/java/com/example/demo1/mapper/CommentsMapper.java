@@ -7,6 +7,9 @@ import org.apache.ibatis.annotations.*;
 import java.util.Date;
 import java.util.List;
 
+ /**
+  * @Description:  数据库中comments表对应的操作接口
+  */
 @Mapper
 public interface CommentsMapper {
     @Insert({"INSERT INTO `nowfitness`.`comments` (momentsId,content,commentUserId,commentTime) value(#{momentsId},#{content},#{commentUserId},#{commentTime})"})

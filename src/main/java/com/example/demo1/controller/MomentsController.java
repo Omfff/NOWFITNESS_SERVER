@@ -23,6 +23,9 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+ /**
+  * @Description:     接收前端传来的关于社交动态的请求数据，调用Service进行相应的业务处理
+  */
 @RestController
 public class MomentsController {
     @Autowired

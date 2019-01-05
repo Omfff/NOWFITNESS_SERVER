@@ -7,6 +7,9 @@ import org.apache.ibatis.annotations.*;
 import java.util.Date;
 import java.util.List;
 
+ /**
+  * @Description:  数据库中replies表对应的操作接口
+  */
 @Mapper
 public interface RepliesMapper {
 
@@ -20,7 +23,7 @@ public interface RepliesMapper {
     void deleteRepliesByCommentId(@Param("commentId")int commentId);
 
 
-    @Select("SELECT * FROM  `nowfitness`.`replies` WHERE commentId =#{commentId} ORDER BY `replyTime` DESC")
+    @Select("SELECT * FROM  `nowfitness`.`replies` WHERE commentId =#{commentId} ORDER BY `replyTime` ")
     List<RepliesModel> selectRepliesUnderComment(int commentId);
 
     @Select("SELECT * FROM  `nowfitness`.`replies` WHERE id = #{id}")

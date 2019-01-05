@@ -1,5 +1,8 @@
 package com.example.demo1.util;
 
+ /**
+  * @Description:   生成文件名的工具类
+  */
 public class FileNameUtils {
 
     /**

@@ -11,24 +11,13 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 
+ /**
+  * @Description:    接收前端传来的关于用户计步信息的请求数据，调用Service进行相应的业务处理
+  */
 @RestController
 public class StepsDataController {
     @Autowired
     private StepsDataService stepsDataService;
-
-    // /user/stepsdata/insert?id=xxx&steps=xxx&calories(calories非必需的)
-    /*@RequestMapping(value = "/user/stepsData",method = RequestMethod.PUT)
-    public BaseResponse insertStepsData(@RequestParam("id")int userId, @RequestParam("steps")int steps,
-                                        @RequestParam("calories")int calories){
-        StepsDataModel stepsDataModel = new StepsDataModel(userId,steps,calories);
-        String result = stepsDataService.insertStepsData(stepsDataModel);
-        BaseResponse baseResponse = new BaseResponse((new Timestamp(System.currentTimeMillis())).toString()
-                ,Code.OK
-                ,Code.NO_ERROR_MESSAGE                ,result
-                ,"/user/stepsData"
-                ,null);
-        return baseResponse;
-    }*/
 
     @RequestMapping(value = "/user/stepsData",method =RequestMethod.PUT)
     public BaseResponse updateStepsData(@RequestParam("id")int userId, @RequestParam("steps")int steps,

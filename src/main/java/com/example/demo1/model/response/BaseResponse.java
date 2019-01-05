@@ -2,6 +2,9 @@ package com.example.demo1.model.response;
 
 import lombok.Data;
 
+ /**
+  * @Description:  返回给前端的格式
+  */
 @Data
 public class BaseResponse {
     private String timestamp;
